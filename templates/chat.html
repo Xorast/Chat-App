@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Chat</title>
+
+</head>
+<body>
+    
+        <h1>You are logged in as {{ logged_in_as }}</h1>
+        
+        <h2>If you want to post a message, here is the form : </h2>
+        
+        <form method="GET" action="/">
+            <input type="text" name="message"/>
+            <input type="submit" value="Post"/>
+        </form>
+    
+        <h2>Here are the messages : </h2>
+        
+        {% for message in post %}
+        <p>{{ message }}</p>
+        {% endfor %}    
+    
+</body>
+</html>
