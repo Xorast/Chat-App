@@ -16,8 +16,8 @@
         
         <h2>If you want to post a message, here is the form : </h2>
         
-        <form method="GET" action="/">
-            <input type="text" name="message"/>
+        <form method="POST" action="/{{logged_in_as}}/new">
+            <input type="text" name="message" placeholder="What's happening ?"/>
             <input type="submit" value="Post"/>
         </form>
     
@@ -29,3 +29,4 @@
     
 </body>
 </html>
+

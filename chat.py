@@ -24,10 +24,20 @@ def get_userpage(username_II):                                                  
 # def add_message(username, message):
 #     return "<strong>{0}: </strong>{1}".format(username, message)
     
-@app.route("/<username_III>/<message>")
-def post_message(username_III, message):
-    return render_template("chat.html", username=username_III, message_A = message)  
+@app.route("/<username_III>/new", methods=["POST"])
+def post_message(username_III):
+    text    = request.form["message"]
+    # message = "<strong>{0}:</strong> {1}".format(username_III, text)          # changement du data structure
     
+    message = {
+        'sender': username_III,
+        'body': text
+    }
+    
+    all_the_messages.append(message)
+    return redirect(username_III)
+    
+
 
 
 
