@@ -38,11 +38,12 @@ def post_message(username_III):
         if word in text :
             text = text.replace(word, "*" * len(word))
     
-    if text[1] != '@' :
+    to = 'all'
+    if text[0] != '@' :
         to = "all"
     else : 
         for user in users :
-            if user in text[:8] :
+            if user in text :
                 to = user
         
                                                                                                                                         
