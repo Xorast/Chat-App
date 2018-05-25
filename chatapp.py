@@ -5,7 +5,6 @@ import re
 app = Flask(__name__)
 
 all_the_messages = []
-users = []
 
 banned_words =  ["connard", "salaud"]
 
@@ -17,7 +16,6 @@ def show_landing_page():                                                        
 def get_username():                                                             # do :
     username = request.args.get('username')                                     # username = request.args['username'] // Get the value of the argument 'username'
                                                                                 # the form send an URL/request with /login?username="..."&color="..." ==> flask got it. ? : request
-    users.append(username)
     return redirect(username)                                                   # gonna redirect to "/" + username. the "/" is implicit. 
                                                                                 # if we wanted to have the path username/color ==> redirect(username + "/" + color)
     
@@ -39,12 +37,11 @@ def post_message(username_III):
             text = text.replace(word, "*" * len(word))
     
     to = 'all'
-    if text[0] != '@' :
-        to = "all"
-    else : 
-        for user in users :
-            if user in text :
-                to = user
+    if text[0] == '@' :
+        user = text.split(' ', 1)[0]
+        to = user[1:]
+        
+    # add that the sender can see the private message (for now only the receiver can see the message adressed to him/her)
         
                                                                                                                                         
     message = {

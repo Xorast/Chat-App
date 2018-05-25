@@ -25,12 +25,12 @@
         
         {% for message in post %}
         
-            {% if message.to == logged_in_as %}
+            
+            
+            {% if message.to == logged_in_as or message.sender == logged_in_as %}
                 <p>{{ message.sender }} : {{ message.body }}</p>
-            {% endif %}
-             
-            {% if message.to == "all"  %}
-            <p>{{ message.sender }} : {{ message.body }}</p>
+            {% elif message.to == "all" %}
+                <p>{{ message.sender }} : {{ message.body }}</p>
             {% endif %}
              
         {% endfor %}    
