@@ -1,9 +1,11 @@
 import os
 from flask import Flask, redirect, render_template, request
+import re
 
 app = Flask(__name__)
 
 all_the_messages = []
+banned_words =  ["connard", "salaud"]
 
 @app.route("/")                                                                 # when the client is at the location "/" ,
 def show_landing_page():                                                        # do : 
@@ -29,6 +31,10 @@ def post_message(username_III):
     text    = request.form["message"]
     # message = "<strong>{0}:</strong> {1}".format(username_III, text)          # changement du data structure
     
+    for word in banned_words:
+        if word in text :
+            text = text.replace(word, "*" * len(word))
+                                                                                                                                        
     message = {
         'sender': username_III,
         'body': text
@@ -36,9 +42,6 @@ def post_message(username_III):
     
     all_the_messages.append(message)
     return redirect(username_III)
-    
 
-
-
-
-app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug = True)
+if __name__ == '__main__':
+    app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080)))

@@ -24,8 +24,15 @@
         <h2>Here are the messages : </h2>
         
         {% for message in post %}
-        <p>{{ message }}</p>
+        <p>{{ message.sender }} : {{ message.body }}</p>
         {% endfor %}    
+    
+    
+        <script type="text/javascript" src="">
+            setTimeout(function() {
+                location.reload();
+                }, 5000);
+        </script>
     
 </body>
 </html>
