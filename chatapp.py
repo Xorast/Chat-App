@@ -5,6 +5,8 @@ import re
 app = Flask(__name__)
 
 all_the_messages = []
+users = []
+
 banned_words =  ["connard", "salaud"]
 
 @app.route("/")                                                                 # when the client is at the location "/" ,
@@ -15,6 +17,7 @@ def show_landing_page():                                                        
 def get_username():                                                             # do :
     username = request.args.get('username')                                     # username = request.args['username'] // Get the value of the argument 'username'
                                                                                 # the form send an URL/request with /login?username="..."&color="..." ==> flask got it. ? : request
+    users.append(username)
     return redirect(username)                                                   # gonna redirect to "/" + username. the "/" is implicit. 
                                                                                 # if we wanted to have the path username/color ==> redirect(username + "/" + color)
     
@@ -34,10 +37,19 @@ def post_message(username_III):
     for word in banned_words:
         if word in text :
             text = text.replace(word, "*" * len(word))
+    
+    if text[1] != '@' :
+        to = "all"
+    else : 
+        for user in users :
+            if user in text[:8] :
+                to = user
+        
                                                                                                                                         
     message = {
         'sender': username_III,
-        'body': text
+        'body': text,
+        'to' : to
     }
     
     all_the_messages.append(message)

@@ -24,9 +24,14 @@
         <h2>Here are the messages : </h2>
         
         {% for message in post %}
-        <p>{{ message.sender }} : {{ message.body }}</p>
+            {% if message.to == {{ logged_in_as }}  %}
+                <p>{{ message.sender }} : {{ message.body }}</p>
+             {% endif %}
+             {% if message.to == "all"  %}
+                <p>{{ message.sender }} : {{ message.body }}</p>
+             {% endif %}
         {% endfor %}    
-    
+          
         <p>End of the chat</p>
     
         <script type="text/javascript" src="">
